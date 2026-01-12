@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import { storyblok } from '@storyblok/astro';
 import { loadEnv } from 'vite';
 import mkcert from 'vite-plugin-mkcert'
+import vercel from '@astrojs/vercel';
 const env = loadEnv('', process.cwd(), 'STORYBLOK');
 const { STORYBLOK_DELIVERY_API_TOKEN } = loadEnv(
   import.meta.env.MODE,
@@ -32,8 +33,17 @@ export default defineConfig({
       },
     }),
   ],
+
   output: 'server',
+
   vite: {
     plugins: [ mkcert() ]
   },
+
+  i18n: {
+    locales: ["es", "en", "pt-br"],
+    defaultLocale: "en",
+  },
+
+  adapter: vercel()
 });
