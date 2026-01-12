@@ -1,0 +1,23 @@
+---
+import { useStoryblokApi } from '@storyblok/astro';
+
+const storyblokApi = useStoryblokApi();
+const articles = await storyblokApi.getAll('cdn/stories', {
+  version: 'draft',
+  starts_with: 'articles',
+  content_type: 'article',
+});
+---
+
+<div>
+  <h1>Articles overview</h1>
+  <ul>
+  {
+    articles.map((article) => (
+      <li>
+        <a href={article.slug}>{article.content.title}</a>
+      </li>
+    ))
+  }
+  </ul>
+</div>
